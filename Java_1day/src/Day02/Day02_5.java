@@ -2,7 +2,7 @@ package Day02;
 
 import java.util.Scanner;
 
-public class Day02_5_문제2_문제14 {
+public class Day02_5 {
 	
 	public static void main(String[] args) {
 		
@@ -48,11 +48,7 @@ public class Day02_5_문제2_문제14 {
 		
 		
 		//문제3 : 하나의 정수를 입력받아 7의 배수인지 출력[ true , false ]
-		
-		System.out.println(scanner == (scanner*7));
-		
-		
-		
+				
 		//문제4 : 하나의 정수를 입력받아 홀수 인지 확인 [ true , false ]
 		
 		//문제5 : 하나의 정수를 입력받아 7의 배수 이면서 짝수 인지 확인 [ true , false ]
