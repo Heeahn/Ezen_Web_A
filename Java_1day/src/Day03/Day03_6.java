@@ -93,83 +93,89 @@ public class Day03_6 {
 //		
 //		System.out.println("\n-----------------------------------------");
 //		
-		// 별문제6 : 입력받은 줄 수 만큼 출력
-		
-		System.out.print("문제6) 줄수 : "); 
-		int line6 = scanner.nextInt();
-	
-		for( int i = 1 ; i<=line6 ; i++ ) {
-			//1.공백찍기
-			for( int b = 1 ; b<i ; b++ ) { 
-				System.out.print(" "); // 공백 => 스페이바 
+//		// 별문제6 : 입력받은 줄 수 만큼 출력
+//		
+//		System.out.print("문제6) 줄수 : "); 
+//		int line6 = scanner.nextInt();
+//	
+//		for( int i = 1 ; i<=line6 ; i++ ) {
+//			//1.공백찍기
+//			for( int b = 1 ; b<i ; b++ ) { 
+//				System.out.print(" "); // 공백 => 스페이바 
+//			}
+//			//2.별찍기
+//			for( int s = 1 ; s<=line6-i+1 ; s++ ) {
+//				System.out.print("*");
+//			}
+//			//3. 줄바꿈
+//			System.out.println();
+//		}
+//		
+//		System.out.println("\n-----------------------------------------");
+//		
+//		// 별문제7
+//		System.out.print("문제7) 줄수 : "); 
+//		int line7 = scanner.nextInt();
+//		
+//		for(int i=1;i<=line7;i++){
+//			for(int b=1;b<=line7-i;b++) {
+//				System.out.print(" ");
+//			}
+//			for(int s=1;s<=(i*2)-1;s++) {
+//				System.out.print("*");
+//			}
+//			for(int b=1;b<=line7-i;b++) {
+//				System.out.print(" ");
+//			}
+//			System.out.println();
+//		}
+//		System.out.println("\n-----------------------------------------");
+//		
+//		//별문제8
+//		System.out.print("문제8) 줄수 : "); 
+//		int line8 = scanner.nextInt();
+//		
+//		for(int i=1;i<=line7;i++){
+//			for(int b=1;b<=line7-i;b++) {
+//				System.out.print(" ");
+//			}
+//			for(int s=1;s<=(i*2)-1;s++) {
+//				System.out.print(i);
+//			}
+//			for(int b=1;b<=line7-i;b++) {
+//				System.out.print(" ");
+//			}
+//			System.out.println();
+//		}
+//		System.out.println("\n-----------------------------------------");
+//		
+//		
+//		//별문제9
+//		System.out.print("문제9) 줄수 : "); 
+//		int line9 = scanner.nextInt();
+//		
+//		for(int i=1;i<=line9;i++){
+//			for(int b=1;b<=line9-i;b++) {
+//				System.out.print(" ");
+//			}
+//			for(int s=1;s<=line9;s++) {
+//				System.out.print("*");
+//			}
+//			for(int b=1;b<=line9-i;b++) {
+//				System.out.print(" ");
+//			}
+//			System.out.println();
+//		}
+//		System.out.println("\n-----------------------------------------");
+//		
+//		
+		for(int x=1; x<=10;x++) {
+			for(int y=1;y<=10;y++) {
+				if((4*x)+(5*y)==60) {
+					System.out.printf("(%d, %d)\n",x,y);				
 			}
-			//2.별찍기
-			for( int s = 1 ; s<=line6-i+1 ; s++ ) {
-				System.out.print("*");
 			}
-			//3. 줄바꿈
-			System.out.println();
 		}
-		
-		System.out.println("\n-----------------------------------------");
-		
-		// 별문제7
-		System.out.print("문제7) 줄수 : "); 
-		int line7 = scanner.nextInt();
-		
-		for(int i=1;i<=line7;i++){
-			for(int b=1;b<=line7-i;b++) {
-				System.out.print(" ");
-			}
-			for(int s=1;s<=(i*2)-1;s++) {
-				System.out.print("*");
-			}
-			for(int b=1;b<=line7-i;b++) {
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-		System.out.println("\n-----------------------------------------");
-		
-		//별문제8
-		System.out.print("문제8) 줄수 : "); 
-		int line8 = scanner.nextInt();
-		
-		for(int i=1;i<=line7;i++){
-			for(int b=1;b<=line7-i;b++) {
-				System.out.print(" ");
-			}
-			for(int s=1;s<=(i*2)-1;s++) {
-				System.out.print(i);
-			}
-			for(int b=1;b<=line7-i;b++) {
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-		System.out.println("\n-----------------------------------------");
-		
-		
-		//별문제9
-		System.out.print("문제9) 줄수 : "); 
-		int line9 = scanner.nextInt();
-		
-		for(int i=1;i<=line9;i++){
-			for(int b=1;b<=line9-i;b++) {
-				System.out.print(" ");
-			}
-			for(int s=1;s<=line9;s++) {
-				System.out.print("*");
-			}
-			for(int b=1;b<=line9-i;b++) {
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-		System.out.println("\n-----------------------------------------");
-		
-		
-		
 		
 		
 		
