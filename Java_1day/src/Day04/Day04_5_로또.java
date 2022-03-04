@@ -3,7 +3,7 @@ package Day04;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Day04_5 {
+public class Day04_5_로또 {
 	public static void main(String[] args) {
 		
 		//준비
