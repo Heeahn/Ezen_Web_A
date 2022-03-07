@@ -69,53 +69,63 @@ public class Day05_2_회원제_방문록_프로그램 {
 				System.out.print("MEMBER ID : "); 					String id = scanner.next();
 				System.out.print("MEMBER PASSWORD : "); 	String password = scanner.next();
 				System.out.println("-------------------------------------------------");
-				
-				//배열내 데이터가 입력받은 id와 password가 동일하면 로그인처리
-				for(int i=0; i<memberlist.length;i++) {
-					if(memberlist[i][0] != null && memberlist[i][0].equals(id)&&memberlist[i][0].equals(password)) {
+
+				boolean logincheck = false;
+				for(int i=0; i<memberlist.length;i++) {//배열내 데이터가 입력받은 id와 password가 동일하면 로그인처리
+					
+					if(memberlist[i][0] != null && memberlist[i][0].equals(id)&&
+							memberlist[i][0].equals(password)) {
 						// i번째 행에 id와 password 가 입력받은 값과 equals 같으면 
 							// null 은 객체가 아니기 떄문에 equals 가 불가능 => == 가능
 						System.err.println("로그인성공");
 						
-						System.out.println("-------------------------------------");
-						System.out.println("--------------방문록-----------------");
-						System.out.println("번호\t작성자\t제목\t내용");
-							//
-							for(int j=0;j<boardlist.length;j++) {
-								if(boardlist[j][0] != null) {
-									System.out.printf("%d\t%s\t%s\t%s \n",
-											j, 
-											boardlist[j][2], 
-											boardlist[j][0], 
-											boardlist[j][1]);
+						logincheck = true; //로그인 성공 값 저장
+						while(true) { // 로그인시 메뉴 무한루프
+							System.out.println("-------------------------------------");
+							System.out.println("--------------방문록-----------------");
+							System.out.println("번호\t작성자\t제목\t내용");
+								//
+								for(int j=0;j<boardlist.length;j++) {
+									if(boardlist[j][0] != null) { // 게시물이 없는 인덱스는 제외
+										System.out.printf("%d\t%s\t%s\t%s \n",
+												j, 
+												boardlist[j][2], 
+												boardlist[j][0], 
+												boardlist[j][1]);
+									}
 								}
-							}
-						
-						System.out.println("1. 방문록남기기 2. 로그아웃 선택 : "); int ch2 = scanner.nextInt();
-						
-						if(ch2==1) {
-							System.out.println("-----------글쓰기------------------");
-							System.out.println("title : "); 			String title = scanner.next();
-							System.out.println("content : ");		String content = scanner.next();
 							
-							for(int j=0;j<boardlist.length;j++) {
-								if(boardlist[j][0]==null) { // 배열내 j번째 인덱스 계시물이 공백이면
-									boardlist[j][0] = title;	boardlist[j][1] = content;	
-									boardlist[j][2] = id; // 로그인시 사용된 id를 대입
-									System.err.println("방문록이 작성되었습니다.");
-									break;
+							System.out.println("1. 방문록남기기 2. 로그아웃 선택 : "); int ch2 = scanner.nextInt();
+							
+							if(ch2==1) {
+								System.out.println("-----------글쓰기------------------");
+								System.out.println("title : "); 			String title = scanner.next();
+								System.out.println("content : ");		String content = scanner.next();
+								
+								for(int j=0;j<boardlist.length;j++) {
+									if(boardlist[j][0]==null) { // 배열내 j번째 인덱스 계시물이 공백이면
+										boardlist[j][0] = title;	boardlist[j][1] = content;	
+										boardlist[j][2] = id; // 로그인시 사용된 id를 대입
+										System.err.println("방문록이 작성되었습니다.");
+										break;
+									}
 								}
+								
 							}
-							
+							else if(ch2==2) {
+								System.err.println("로그아웃");
+								break;
+							}
+							else System.err.println(" 알림) 알수 없는 번호입니다!");
+							 	
 						}
-						else if(ch2==2) {
-							System.err.println("로그아웃");
-							break;
-						}
-						else System.err.println(" 알림) 알수 없는 번호입니다!");
-						 						
+											
 					}//ie= login e
-				}//fe								
+				}//fe
+				
+				//로그인 실패시
+				if(logincheck == false) System.out.println("회원정보가 없거나 다릅니다.");
+				
 			}// ch==2 ie
 			else System.err.println(" 알림) 알수 없는 번호입니다!");					
 		}//w1e		
