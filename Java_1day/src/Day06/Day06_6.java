@@ -95,7 +95,7 @@ public class Day06_6 {//cs
 						System.out.println("알림) 수정할 내용 : "); boardlist[bno].content = scanner.next();
 						System.err.println("알림) 글이 수정되었습니다.");
 					}
-					else {
+					else {// 만일 비밀번호가 틀리다면
 						System.err.println("알림) 비밀번호가 다릅니다.[수정실패]");
 					}
 					
