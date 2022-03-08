@@ -65,7 +65,7 @@ public class Day06_6 {//cs
 
 					System.out.println("현 게시물 비밀번호: "); String password = scanner.next();
 					// 반복문X 검색X=> 삭제할 인덱스 위치를 입력받았기 때문에
-					if(boardlist[bno].equals(password)) {
+					if(boardlist[bno].password.equals(password)) {
 						System.out.println("알림) 삭제 성공");
 						boardlist[bno]=null;
 						// 삭제후에 삭제된 인덱스 뒤로 한칸식 앞으로 이동
@@ -90,12 +90,13 @@ public class Day06_6 {//cs
 
 					System.out.println("현 게시물 비밀번호: "); String password = scanner.next();
 					// 반복문X 검색X=> 삭제할 인덱스 위치를 입력받았기 때문에
-					if(boardlist[bno].equals(password)) {
-						System.out.println("알림) 수정할 내용 : "); String content2 = scanner.next();
-						boardlist[bno].content= content2;						
+					if(boardlist[bno].password.equals(password)) {
+						System.out.println("알림) 수정할 제목 : "); boardlist[bno].title = scanner.next();
+						System.out.println("알림) 수정할 내용 : "); boardlist[bno].content = scanner.next();
+						System.err.println("알림) 글이 수정되었습니다.");
 					}
 					else {
-						System.err.println("알림) 비밀번호가 다릅니다.[삭제실패]");
+						System.err.println("알림) 비밀번호가 다릅니다.[수정실패]");
 					}
 					
 				}
