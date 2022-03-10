@@ -31,48 +31,7 @@ public class Day06_3 {//cs
 			// 1. 회원가입
 			if(ch==1) {//is
 				//1. id, password, name, phone 입력받기 => 변수4
-				System.out.println("-------------------회원가입 폐이지-------------------");
-				System.out.println("아이디 :"); 		String id = scanner.next();
-				System.out.println("비밀번호 :"); 	String password = scanner.next();
-				System.out.println("이름 :"); 		String name = scanner.next();
-				System.out.println("연락처 :"); 		String phone = scanner.next();
 				
-				//2. 객체 생성
-				Member member = new Member();
-				
-				//3. 입력받은 변수4개를 객체내 필드에 저장하기
-				member.id = id;
-				member.password = password;
-				member.name = name;
-				member.phone= phone;	
-				
-				//* 아이디 중복체크
-					// 1. 배열내 객체중 입력한 id와 동일한 id 찾기
-				boolean idcheck = false;
-				for(Member temp : memberlist) {//fs
-					//*memberlist 배열내 객체들을 하나씩 temp에 대입 반복
-					if(temp!=null&&temp.id.equals(id)) {//is
-						//만약에 해당 객체내 id가 입력받은 id와 같으면
-						System.err.println("알림) 사용중인 아이디 입니다.");
-						idcheck = true;
-						break;
-					}//ie
-				}//fe
-				
-				// 아이디가 중복이 없을경우 저장
-				if(idcheck==false) { // 중복이 없을경우 저장
-					//4. 여러개 객체를 저장하는 배열에 저장
-						// 1. 공백 인덱스 찾기 [ 공백이 아니면 기존회원이 존재]
-					int i = 0; // 인덱스 위치변수;						
-					for(Member temp : memberlist) {//fs
-						if(temp == null) {//if s //만약에 해당 객체가 공백이면
-							memberlist[i] = member; // 해당 인덱스에 새로 만들어진 객체 저장
-							System.err.println("알림) 회원 가입 성공!");
-							break; // for 나가기 [ 안나가면 모든 공백에 동일한 객체 저장되기 떄문에]
-						}//if e
-							i++;
-					}//fe				
-				}//ie
 			}// 회원가입 if e
 		
 			
