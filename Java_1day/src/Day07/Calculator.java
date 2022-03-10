@@ -41,7 +41,10 @@ public class Calculator {
 	}
 	
 	void powerOff() { //4. 인수x반환x
+//리턴타입 메소드명(){	}
 		System.out.println("전원을 끕니다.");
 	}
+
+
 	
 }

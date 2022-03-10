@@ -29,6 +29,7 @@ public class Day07_1 {//cs
 		double result2 = myCalc.divide(x, y);
 		System.out.println("result2 :"+result2);
 		
+		// 5. 메소드 호출[인수x]
 		myCalc.powerOff();
 				
 	}//me
