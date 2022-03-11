@@ -58,12 +58,14 @@ public class Book {
 	void 도서대여(String loginid) {
 		System.out.println("----------------------도서 대여 페이지----------------------");
 		System.out.println("도서 ISBN :"); String isbn = Day07_5_BookApplication.scanner.next();
+		
+		int i= 0;
 		for(Book temp: Day07_5_BookApplication.books) {
 			if(temp !=null && temp.ISBN.equals(isbn)) {
 				if(temp.brental) {
 					System.out.println("해당 도서 대여 합니다.");
-					temp.brental = false;
-					temp.mid =  loginid;
+					Day07_5_BookApplication.books[i].brental = false;
+					Day07_5_BookApplication.books[i].mid = loginid;
 					return;
 				}
 				else {
@@ -71,7 +73,8 @@ public class Book {
 					return;
 				}
 			}
-		}	
+		}
+		i++;
 		System.out.println("동일한 도서가 없습니다.");
 	}
 		// 4. 도서반납
@@ -79,6 +82,8 @@ public class Book {
 		System.out.println("----------------------도서 반납 페이지----------------------");
 		도서대여목록(loginid);
 		System.out.println("도서 ISBN "); String isbn = Day07_5_BookApplication.scanner.next();
+		
+		int i =0;
 		for(Book temp : Day07_5_BookApplication.books) {
 			if(temp !=null && temp.ISBN.equals(isbn)) { // 입력한 isbn이 있으면
 				if(temp.mid.equals(loginid)) {//대여인과 현재 로그인된 사람이 동일하면
@@ -87,8 +92,8 @@ public class Book {
 					}
 					else { // 대여중이면
 						System.out.println("알림) 반납 완료!!");
-						temp.brental = true;
-						temp.mid = null;
+						Day07_5_BookApplication.books[i].brental = true;
+						Day07_5_BookApplication.books[i].mid = null;
 						return;
 					}
 				}
@@ -97,6 +102,7 @@ public class Book {
 				}
 			}
 		}
+		i++;
 	}
 	
 	void 도서대여목록(String loginid) {
@@ -131,7 +137,7 @@ public class Book {
 		int i = 0;
 		for(Book temp : Day07_5_BookApplication.books) {
 			if(temp == null) {
-				Day07_5_BookApplication.books[i] = book;;
+				Day07_5_BookApplication.books[i] = book;
 				return; // 등록 성공시 메소드 종료
 			}
 			i++;
