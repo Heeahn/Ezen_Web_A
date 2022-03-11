@@ -71,10 +71,7 @@ public class Loan {
 				for(Bank temp2 : Day08_5.banks) {
 					if( temp2.getMid().equals(loginid) ) {
 						Day08_5.banks[j].setMoney(
-								Day08_5.banks[j].getMoney()-
-								Day08_5.loans[i].getLmoney()+
-								Day08_5.loans[i].getLmoney()*
-								Day08_5.loans[i].getInterest()
+								Day08_5.banks[j].getMoney()-lmoney
 						);
 					}
 				}
@@ -131,10 +128,10 @@ public class Loan {
 	public void setLoanName(String loanName) {
 		this.loanName = loanName;
 	}
-	public int getLmoney() {
+	public double getLmoney() {
 		return lmoney;
 	}
-	public void setLmoney(int lmoney) {
+	public void setLmoney(double  lmoney) {
 		this.lmoney = lmoney;
 	}
 	public double getInterest() {
