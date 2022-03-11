@@ -40,7 +40,7 @@ public class Bank {
 				return false; 
 			}
 		}
-		Bank bank2 = new Bank();
+		Bank bank2 = new Bank(bank,number,bpassword);
 		
 		int i = 0;
 		for(Bank temp : Day08_5.banks) {//fs
