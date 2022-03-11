@@ -106,7 +106,7 @@ public class Day08_5 {
 				loan.대출진행(loginid);
 			}
 			else if(ch==2) {
-				loan.대출상환();
+				loan.대출상환(loginid);
 			}
 			else if(ch==3) {
 				return;

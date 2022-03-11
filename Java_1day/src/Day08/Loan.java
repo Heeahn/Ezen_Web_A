@@ -4,7 +4,7 @@ public class Loan {
 	
 	// 1. 필드
 	private String loanName;	// 대출이름(관리자)
-	private int lmoney;	// 금액(관리자)
+	private double lmoney;	// 금액(관리자)
 	private double interest;	// 이자(관리자)
 	private String lid;	// 대출인[id]
 	private boolean cl;	// 상환여부(한번에)
@@ -35,20 +35,52 @@ public class Loan {
 	void 대출진행(String loginid) {
 		System.out.println("----------------------대출 진행 페이지------------------------");
 		System.out.println("대출 상품 : "); String loanName = Day08_5.scanner.next();
-		
-		Loan loan = new Loan();
-		
+				
 		int i = 0;
 		for(Loan temp : Day08_5.loans) {
 			if(temp != null && temp.loanName.equals(loanName)) {
 				System.out.println(loanName+"상품을 대출하였습니다.");
+				Day08_5.loans[i].setLid(loginid);	
+				
+				int j = 0;
+				for( Bank temp2 : Day08_5.banks ) {
+					if( temp2.getMid().equals(loginid) ) {
+						Day08_5.banks[j].setMoney(    
+								Day08_5.banks[j].getMoney() + 
+								Day08_5.loans[i].getLmoney()
+								);
+					}
+					j++;
+				}
 			}
 		}
 		i++;
 	}
-	void 대출상환() {
+	void 대출상환(String loginid) {
 		System.out.println("----------------------대출 상환 페이지------------------------");
-
+		System.out.println("대출상품 : "); String loanName = Day08_5.scanner.next();
+		System.out.println("상환 금액 : "); int lmoney = Day08_5.scanner.nextInt();
+		
+		int i=0;
+		for(Loan temp : Day08_5.loans) {
+			if(temp != null && temp.loanName.equals(loanName) && temp.lmoney == lmoney) {
+				System.out.println("대출이 상환되었습니다.");
+				Day08_5.loans[i].setLid(loginid);
+				
+				int j = 0;
+				for(Bank temp2 : Day08_5.banks) {
+					if( temp2.getMid().equals(loginid) ) {
+						Day08_5.banks[j].setMoney(
+								Day08_5.banks[j].getMoney()-
+								Day08_5.loans[i].getLmoney()+
+								Day08_5.loans[i].getLmoney()*
+								Day08_5.loans[i].getInterest()
+						);
+					}
+				}
+				j++;
+			}
+		}
 	}
 	
 	// 관리자 메소드
@@ -87,7 +119,8 @@ public class Loan {
 	}
 	void 대출삭제() {
 		System.out.println("----------------------대출 삭제 페이지------------------------");
-		System.out.println("");
+		System.out.println("대출 상품 : ");
+		System.out.println("대출인 : ");
 		
 	}
 
