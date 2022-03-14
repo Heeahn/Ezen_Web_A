@@ -5,7 +5,7 @@ public class Bank {
 	private String bname;//은행
 	private String number;//계좌번호
 	private String bpassword;//계좌비밀번호
-	private int money;//돈
+	private double money;//돈
 	private String mid;
 	
 	//2. 생성자
@@ -23,7 +23,7 @@ public class Bank {
 	}
 	
 		// 3. 풀
-	public Bank(String bank, String number, String bpassword, int money, String mid) {
+	public Bank(String bank, String number, String bpassword, double money, String mid) {
 		this.bname = bank;
 		this.number = number;
 		this.bpassword = bpassword;
@@ -80,7 +80,7 @@ public class Bank {
 		int i = 0;
 		for(Bank temp : Day08_5.banks) {
 			if(temp !=null && temp.number.equals(number)) {
-				System.out.println("입금 금액 입력 :"); int money = Day08_5.scanner.nextInt();
+				System.out.println("입금 금액 입력 :"); double money = Day08_5.scanner.nextInt();
 				Day08_5.banks[i].money += money;
 				System.out.println("잔액 :"+temp.money);
 				Day08_5.banks[i].mid = loginid;
@@ -102,7 +102,7 @@ public class Bank {
 		int i = 0;
 		for(Bank temp : Day08_5.banks) {
 			if(temp !=null && temp.number.equals(number) && temp.bpassword.equals(bpassword)) {
-				System.out.println("출금 금액 입력 :"); int money = Day08_5.scanner.nextInt();
+				System.out.println("출금 금액 입력 :"); double money = Day08_5.scanner.nextInt();
 				if(temp.money<money) {
 					System.out.println("잔액 부족");
 					return;
@@ -169,10 +169,10 @@ public class Bank {
 	public void setBpassword(String bpassword) {
 		this.bpassword = bpassword;
 	}
-	public int getMoney() {
+	public double getMoney() {
 		return money;
 	}
-	public void setMoney(int money) {
+	public void setMoney(double money) {
 		this.money = money;
 	}
 	public String getMid() {
