@@ -1,0 +1,47 @@
+package Day11;
+
+public class Student {
+
+	//필드
+	private String name;
+	private int korean;
+	private int english;
+	private int math;
+	
+	//생성자
+	public Student() {}
+	public Student(String name, int korean, int english, int math) {
+		this.name = name;
+		this.korean = korean;
+		this.english = english;
+		this.math = math;
+	}
+	// 메소드
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getKorean() {
+		return korean;
+	}
+	public void setKorean(int korean) {
+		this.korean = korean;
+	}
+	public int getEnglish() {
+		return english;
+	}
+	public void setEnglish(int english) {
+		this.english = english;
+	}
+	public int getMath() {
+		return math;
+	}
+	public void setMath(int math) {
+		this.math = math;
+	}
+	
+	
+	
+}
