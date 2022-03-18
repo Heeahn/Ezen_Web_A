@@ -1,0 +1,10 @@
+입력
+	1.System.in.read()
+		// 바이트열[배열] -> 형변환 직접
+	2.Scanner 클래스
+		// 바이트열[객체] -> next, nextInt, nextDouble
+난수
+	1. Math.random()
+		// 0~1 -> 형변환 직접
+	2. Random 클래스
+		// next
