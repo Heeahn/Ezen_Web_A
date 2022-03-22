@@ -1,81 +1,79 @@
 package Test;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Controller {
 
-	public static ArrayList<Parking> parkingList = new ArrayList<>();
-	Date date = new Date();
-	
-	//입차 메소드
-	public static boolean enter(String carNumber) {
-		for(Parking temp : parkingList) {
-			if(temp==null) {
-				//입차 코드 작성
-					// 1. 입력받은 차량번호(인수) 가져온다.
-				Parking parking = new Parking(carNumber);
-					//* 차량번호 중복체크
-				for(Parking temp1: parkingList) {
-					if(temp1!=null&&temp1.getCarNum().equals(carNumber)) {
-						System.out.println("동일한 차량이 존재합니다.");
-						break;
-					}
-					else {
-						temp1.setCarNum(carNumber);
-						// 2. 입차날짜(현재날짜)을 구한다
-						LocalDate date =LocalDate.now();
-						temp1.setDate(date);
-						// 3. 입차시간을 구한다
-						LocalTime localTime = LocalTime.now();
-						DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-						String formatttedNow = localTime.format(dateTimeFormatter);
-						temp1.setInTime(localTime);
-						// 4. 차량번호, 입차날짜, 입차시간 => 3개변수 -> 객체화
-						Parking parkingin = new Parking(date, carNumber, localTime);
-						// 5. 차량객체를 배열이나 리스트에 저장
-						parkingList.add(parkingin);
-						return true;
-					}
-				}
+	public static ArrayList<Parking> carlist = new ArrayList<>(); 
+	// 입차 메소드
+	public static boolean incar(Date date,String carnumber) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat hm = new SimpleDateFormat("HH:mm");
+		for(Parking temp : carlist) {
+			if(temp.getCarnum().equals(carnumber) && temp.getOuttime().equals("주차 중")) {
+				return false;
 			}
-		else return false; 
 		}
-		return false;
+		
+		Parking temp = new Parking(carnumber,ymd.format(date), hm.format(date) , "주차 중", "정산 전",sdf.format(date));
+		carlist.add(temp);
+
+		return true;
 	}
-	//출차 메소드
-	public static boolean exit(String carNumber) {
-		// 출차 코드 작성
-			// 1. 입력받은 차량번호(인수) 가져온다.
-		Parking parking = new Parking(carNumber);
-			// 2. 배열 or 리스트내 동일한 차량번호를 찾아서
-		for(Parking temp: parkingList) {
-			if(temp==null) {
-				if(temp!=null&&temp.getCarNum().equals(carNumber)) {
-				System.out.println(carNumber+"출차합니다.");
-				// 3. 출차시간(현재시간)을 구한다
-				LocalTime localTime = LocalTime.now();
-				DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-				String formatttedNow = localTime.format(dateTimeFormatter);
-				temp.setOutTime(localTime);
-				// 4. 계산[출차시간-입차시간 => (분-30)/10 * 1000
-				temp.setMoney(((temp.getOutTime().until(temp.getInTime(),ChronoUnit.MINUTES))-30)/10*1000);
-				
-				// 5. (수정)찾은 객체내 출차시간과 금액을 대입한다.
-				temp = null;
-				
-				return true;
-				}
-				else {
-					System.out.println("차량번호가 다릅니다.[재입력]");
-					break;
-				}
+	
+	// 출차 메소드
+	public static int outcar(String carnumber) throws ParseException {
+		
+		for(Parking temp : carlist) {
+			if(temp.getCarnum().equals(carnumber) && temp.getPay().equals("정산 전")) {
+				count(carnumber);
+				return 3; // 출차 완료
+			}	
+		}
+		for(Parking temp : carlist) {
+			if(temp.getCarnum().equals(carnumber)) {
+				return 2; // 이미 계산완료된 차량
 			}
 		}
-		return false;
-	}	
+		return 1; // 일치하는 차량 번호 없음
+	}
+	
+	// 금액계산 메소드
+	public static void count(String carnumber) throws ParseException {
+	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat hm = new SimpleDateFormat("HH:mm");
+		DecimalFormat decimalFormat = new DecimalFormat("#,###원"); 
+		
+		int i=0; // 인덱스 번호
+		for(Parking temp : carlist) {
+			Date date = new Date();
+			if(temp.getCarnum().equals(carnumber)) {
+				
+				
+				Date d1 = sdf.parse(temp.getIntime()); // String -> Date 형식으로 변환
+				Date d2 = date; // 현재시간 
+				String dateend = hm.format(d2); // 출차시간 출력용 변환
+				long diff = d2.getTime() - d1.getTime(); // 출차시간 - 입차시간
+				long min = diff/(1000*60); // 위 계산식 분으로 환산
+				long min1 = (long)Math.ceil(min/10.0) *10; // 1~10분에 천원을 받기 위해서 분으로 계산한 식을 10.0으로 나눈후 올리고 곱하기
+				min = (min1*100 -3000); // 최초 30분 무료이기 때문에 3천원깎기
+				if(min<=30) { // 30분 무료
+					min=0;
+				}
+
+				int fee = (int)min; // long으로 계산한거를 int로 변환
+				
+				// 리스트에 저장
+				carlist.get(i).setOuttime(dateend);
+				carlist.get(i).setPay(decimalFormat.format(fee)); // 천단위 자리 구분해서 저장
+			} // if end
+			i++; // 인덱스번호 증가
+		} // for end
+	}
 }
