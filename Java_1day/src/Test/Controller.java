@@ -2,7 +2,7 @@ package Test;
 
 public class Controller {
 
-	Parking parking = new Parking();
+	public static Parking[] parkingList = new Parking[100]; 
 	
 	//입차 메소드
 	public static boolean enter(String carNumber) {

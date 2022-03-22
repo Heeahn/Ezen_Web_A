@@ -2,12 +2,10 @@ package Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class Parking {
 	
 	//ÇÊµå
-	ArrayList<Parking> parkingList = new ArrayList<>();
 	private String carNum;
 	private LocalDate date;
 	private LocalTime inTime;
@@ -27,23 +25,6 @@ public class Parking {
 		this.inTime = inTime;
 		this.outTime = outTime;
 		this.money = money;
-	}
-	
-	public Parking(ArrayList<Parking> parkingList, String carNum, LocalDate date, LocalTime inTime, LocalTime outTime, int money) {
-		this.parkingList = parkingList;
-		this.carNum = carNum;
-		this.date = date;
-		this.inTime = inTime;
-		this.outTime = outTime;
-		this.money = money;
-	}
-
-	public ArrayList<Parking> getParkingList() {
-		return parkingList;
-	}
-
-	public void setParkingList(ArrayList<Parking> parkingList) {
-		this.parkingList = parkingList;
 	}
 
 	public String getCarNum() {
