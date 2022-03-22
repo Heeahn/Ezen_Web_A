@@ -18,6 +18,12 @@ public class Parking {
 	public Parking( String carNum) {
 		this.carNum = carNum;
 	}
+	
+	public Parking( LocalDate date,String carNum, LocalTime inTime) {
+		this.carNum = carNum;
+		this.date = date;
+		this.inTime = inTime;
+	}
 
 	public Parking( LocalDate date,String carNum, LocalTime inTime, LocalTime outTime, int money) {
 		this.carNum = carNum;

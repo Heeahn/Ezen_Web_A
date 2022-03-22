@@ -50,10 +50,11 @@ public class ParkingProgram {
 				if(ch==1) {
 					// 1. 차량번호를 입력받는다.
 					System.out.println("주차할 자량번호 :"); String carNumber = scanner.next();
-					System.out.println(carNumber+" 주차완료");
 					// 2. 입력받은 차량번호를 컨트롤내 메소드에게 넘긴다.
 					Parking parking = new Parking(carNumber);
-					Controller.enter(carNumber);
+					boolean result = Controller.enter(carNumber);
+					if(result) System.out.println(carNumber+" 주차완료");
+					else System.out.println("주차실패");
 					// 3. 메소드 결과에 따른 출력
 					
 				}
