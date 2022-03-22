@@ -30,7 +30,6 @@ public class ParkingProgram {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd      hh:mm");
 		Scanner scanner = new Scanner(System.in);
-		
 		try {
 			while(true) {
 				
@@ -38,7 +37,12 @@ public class ParkingProgram {
 				System.out.println("\t\t\t\t현재시간 :"+dateFormat.format(date));
 				SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
 				System.out.printf("\t%s\t\t%s\t\t%s\t\t%s\t\t%s \n", "날짜", "차량번호", "입차시간", "출차시간", "금액");	
-				int i = 0;
+				for(Parking temp: Controller.parkingList) {
+					if(temp!=null) {
+						System.out.printf("\t%s\t\t%s\t\t%s\t\t%s\t\t%s \n",
+								temp.getDate(), temp.getCarNum(), temp.getInTime(), temp.getOutTime(), temp.getMoney());	
+					}
+				}
 				System.out.println("------------------------------- 주차 현황 표 -------------------------------");
 				System.out.println("\t\t\t\t\t 1.입차\t\t 2. 출차");
 				int ch = scanner.nextInt();

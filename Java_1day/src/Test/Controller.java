@@ -1,16 +1,35 @@
 package Test;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Controller {
 
-	public static Parking[] parkingList = new Parking[100]; 
+	public static ArrayList<Parking> parkingList = new ArrayList<>();
+	Date date = new Date();
 	
 	//입차 메소드
 	public static boolean enter(String carNumber) {
 		
 		//입차 코드 작성
 			// 1. 입력받은 차량번호(인수) 가져온다.
+		Parking parking = new Parking(carNumber);
 			//* 차량번호 중복체크
-			// 2. 입차날짜(현재날짜)을 구한다(????:)
+		for(Parking temp: parkingList) {
+			if(temp==null) {
+				if(temp!=null&&temp.getCarNum().equals(carNumber)) {
+					System.out.println("동일한 차량이 존재합니다.");
+					break;
+				}
+				else {
+					temp.setCarNum(carNumber);
+					// 2. 입차날짜(현재날짜)을 구한다
+					parkingList.add(parking);
+				}
+			}
+		}
+
+		
 			// 3. 입차시간을 구한다
 			// *출차시간, 금액은 출차시
 			// 4. 차량번호, 입차날짜, 입차시간 => 3개변수 -> 객체화
