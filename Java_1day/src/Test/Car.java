@@ -1,35 +1,35 @@
 package Test;
 
-public class Parking {
-
+public class Car {
+	
 	// 필드
-	private String carnum;
+	private String carNumber;
 	private String intimeymd;
 	private String intimehm;
 	private String outtime;
-	private String pay;
+	private String money;
 	private String intime;	
 	
 	// 생성자
-	public Parking() {}
+	public Car() {}
 
-	public Parking(String carnum, String intimeymd, String intimehm, String outtime, String pay, String intime) {
-		this.carnum = carnum;
+	public Car(String intimeymd, String carnum,  String intimehm, String outtime, String money, String intime) {
+		this.carNumber = carnum;
 		this.intimeymd = intimeymd;
 		this.intimehm = intimehm;
 		this.outtime = outtime;
-		this.pay = pay;
+		this.money = money;
 		this.intime = intime;
 	}
 	// 메소드
 	
 
-	public String getCarnum() {
-		return carnum;
+	public String getCarnumber() {
+		return carNumber;
 	}
 
-	public void setCarnum(String carnum) {
-		this.carnum = carnum;
+	public void setCarnumber(String carNumber) {
+		this.carNumber = carNumber;
 	}
 
 	public String getIntimeymd() {
@@ -56,12 +56,12 @@ public class Parking {
 		this.outtime = outtime;
 	}
 
-	public String getPay() {
-		return pay;
+	public String getMoney() {
+		return money;
 	}
 
-	public void setPay(String pay) {
-		this.pay = pay;
+	public void setMoney(String money) {
+		this.money = money;
 	}
 
 	public String getIntime() {
@@ -71,4 +71,5 @@ public class Parking {
 	public void setIntime(String intime) {
 		this.intime = intime;
 	}
+	
 }
