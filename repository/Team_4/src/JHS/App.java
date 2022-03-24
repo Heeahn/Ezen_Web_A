@@ -1,0 +1,93 @@
+package JHS;
+
+import java.util.Scanner;
+
+public class App {//cs
+	
+	public static boolean inputCheck = false;
+	
+	public static void main(String[] args) {//ms
+		
+		Scanner scanner = new Scanner(System.in);
+		Controller controller = new Controller();
+		GameTimer gameTimer = new GameTimer();
+		try {//ts
+			while(true) {//ws
+				//메뉴[ 1. 회원가입 2. 로그인 3. 랭킹보기 4. 아이디 찾기 5. 비밀번호 찾기 6. 종료]
+				System.out.println(" ===================================");
+				System.out.println(" \t\t\t\t끝말잇기 게임");
+				System.out.println(" ===================================");
+				System.out.println(" \t\t\t\t1. 회원가입");
+				System.out.println(" \t\t\t\t2. 로그인");
+				System.out.println(" \t\t\t\t3. 랭킹보기");
+				System.out.println(" \t\t\t\t4. 아이디 찾기");
+				System.out.println(" \t\t\t\t5. 비밀번호 찾기");
+				System.out.println(" \t\t\t\t6. 종료");
+				System.out.println(" ===================================");
+				int ch = scanner.nextInt();
+				//회원가입
+				if(ch==1) {
+					System.out.println(" ===================================");
+					System.out.println(" \t\t\t\t1. 회원가입");
+					System.out.println("ID는 12글자 이하 / PW는 8글자 이상 숫자, 영문, 특수문자 반드시 포함");
+					System.out.println("Id :"); String id = scanner.next();
+					System.out.println("Password :"); String pw = scanner.next();
+					System.out.println("이름 :"); String name = scanner.next();
+					System.out.println("전화번호 :"); String phone = scanner.next();
+					
+					if (Controller.id_valid(id) == 0) {
+						System.err.println("\n아이디는 12글자 이하로 입력해주세요.\n");
+					} else if (Controller.id_valid(id) == 1 && Controller.pw_valid(pw) == 0) {
+						System.err.println("\n비밀번호는 8글자 이상 숫자, 영문, 특수문자를 반드시 포함해 주세요.");
+					} else if (Controller.id_valid(id) == 1 && Controller.pw_valid(pw) == 1) {
+						Controller.sign_up(id, pw, name, phone);
+						System.out.println("\n회원가입 성공");
+					}
+				}
+				//로그인
+				else if(ch==2) {
+					System.out.println(" ===================================");
+					System.out.println(" \t\t\t\t 로그인");
+					System.out.println(" ===================================");
+					System.out.print("ID : ");			String id = scanner.next();
+					System.out.print("PW : ");			String pw = scanner.next();
+					int result = Controller.login(id, pw);
+					if (result == 1) {
+						System.out.println("\n로그인 성공\n");
+						System.out.println("1. 게임 시작 2. 로그아웃");
+						int ch1 = scanner.nextInt();
+						//게임시작
+						if(ch1==1) {
+							System.out.println("시작단어 : 아버지");
+							String word = scanner.next();
+							gameTimer.start();
+							controller.gameStart(id, word);
+							inputCheck = true;
+						}
+						else if(ch1==2) {
+							System.out.println("로그아웃되었습니다.");
+						}
+						else System.out.println("잘못입력하였습니다.");
+					}
+					else if (result == 2) {System.err.println("\n비밀번호 오류\n");} 
+					else if (result == 3) {System.err.println("\n아이디 오류\n");}
+				}
+				//랭킹보기
+				else if(ch==3) {}
+				
+				//아이디 찾기
+				else if(ch==4) {}
+				//비밀번호 찾기
+				else if(ch==5) {}
+				//종료
+				else if(ch==6) {
+					System.exit(0);
+				}
+				else {
+					System.out.println("잘못입력하였습니다.");
+				}
+			}//we
+		}//te
+		catch(Exception e) {scanner = new Scanner(System.in);}
+	}//me
+}//ce
