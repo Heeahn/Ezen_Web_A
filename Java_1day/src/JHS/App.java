@@ -6,9 +6,9 @@ public class App {//cs
 	
 	public static boolean inputCheck = false;
 	
+	static Scanner scanner = new Scanner(System.in);
+	
 	public static void main(String[] args) {//ms
-		
-		Scanner scanner = new Scanner(System.in);
 		Controller controller = new Controller();
 		GameTimer gameTimer = new GameTimer();
 		try {//ts
@@ -29,6 +29,7 @@ public class App {//cs
 				if(ch==1) {
 					System.out.println(" ===================================");
 					System.out.println(" \t\t\t\t1. 회원가입");
+					System.out.println(" ===================================");
 					System.out.println("ID는 12글자 이하 / PW는 8글자 이상 숫자, 영문, 특수문자 반드시 포함");
 					System.out.println("Id :"); String id = scanner.next();
 					System.out.println("Password :"); String pw = scanner.next();
@@ -57,18 +58,7 @@ public class App {//cs
 						System.out.println("1. 게임 시작 2. 로그아웃");
 						int ch1 = scanner.nextInt();
 						//게임시작
-						if(ch1==1) {
-							System.out.println("시작단어 : 아버지");
-							String word = scanner.next();
-							Boolean result1 = controller.gameStart(id, word);
-							if(result1) {
-								gameTimer.start();
-							}
-							else {
-								
-							}
-							inputCheck = true;
-						}
+						if(ch1==1) {game(id);}
 						else if(ch1==2) {
 							System.out.println("로그아웃되었습니다.");
 						}
@@ -83,7 +73,7 @@ public class App {//cs
 				//아이디 찾기
 				else if(ch==4) {
 					System.out.println("===============================");
-					System.out.println("           ID찾기 페이지");
+					System.out.println(" \t\t\t\t4. 아이디 찾기");
 					System.out.println("===============================");
 					System.out.println("이름 입력 : "); String name = scanner.next();
 					System.out.println("전화번호 입력 : "); String contact = scanner.next();
@@ -98,7 +88,7 @@ public class App {//cs
 				//비밀번호 찾기
 				else if(ch==5) {		
 					System.out.println("===============================");
-					System.out.println("         비밀번호 찾기 페이지");
+					System.out.println(" \t\t\t\t5. 비밀번호 찾기");
 					System.out.println("===============================");
 					System.out.println("아이디 입력 : "); String id = scanner.next();
 					System.out.println("전화번호 입력 : "); String contact = scanner.next();
@@ -121,4 +111,39 @@ public class App {//cs
 		}//te
 		catch(Exception e) {scanner = new Scanner(System.in);}
 	}//me
+	
+	private static void game(String id) {
+		try {
+			while(true) {
+				System.out.println("---------끝말잇기 게임---------");
+				System.out.println("1. 시작 2. 내 점수보기 3.로그아웃");
+				System.out.println("----------------------------");
+				System.out.print(">>>>>: "); int ch = scanner.nextInt();
+				
+				if(ch == 1) {
+						System.out.println("게임 시작");
+						String firstword = Controller.randomfirstword();
+						System.out.print("첫번째 글자 : " + firstword + "\n");
+					while(true) {
+							System.out.print("입력 > "); 	String word = scanner.next();
+							boolean result = Controller.gameStart(id, word);
+							if(result) {	}
+							else {
+								System.err.println("게임 종료");
+								Controller.initialization(id);
+								break;
+							}
+						}
+					}
+				else if(ch == 2) {
+					System.out.println("---------점수 보기---------");
+					Controller.seeScore(id);
+				}
+				else if(ch == 3) {break;}
+				else System.out.println("올바른 숫자 입력");
+			}
+		}catch(Exception e) {
+			scanner = new Scanner(System.in);
+		}
+	}
 }//ce
