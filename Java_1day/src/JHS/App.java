@@ -60,8 +60,13 @@ public class App {//cs
 						if(ch1==1) {
 							System.out.println("시작단어 : 아버지");
 							String word = scanner.next();
-							gameTimer.start();
-							controller.gameStart(id, word);
+							Boolean result1 = controller.gameStart(id, word);
+							if(result1) {
+								gameTimer.start();
+							}
+							else {
+								
+							}
 							inputCheck = true;
 						}
 						else if(ch1==2) {
@@ -76,9 +81,35 @@ public class App {//cs
 				else if(ch==3) {}
 				
 				//아이디 찾기
-				else if(ch==4) {}
+				else if(ch==4) {
+					System.out.println("===============================");
+					System.out.println("           ID찾기 페이지");
+					System.out.println("===============================");
+					System.out.println("이름 입력 : "); String name = scanner.next();
+					System.out.println("전화번호 입력 : "); String contact = scanner.next();
+					String id=Controller.idsearch(name, contact);
+					if(id==null) { // 리턴값이 null이면
+						System.out.println("일치하는 회원 정보가 없습니다.");
+					}else { // null말고 제대로 반환하면
+						System.out.println("회원님의 아이디는 "+id+"입니다.");
+					}
+				}
+				
 				//비밀번호 찾기
-				else if(ch==5) {}
+				else if(ch==5) {		
+					System.out.println("===============================");
+					System.out.println("         비밀번호 찾기 페이지");
+					System.out.println("===============================");
+					System.out.println("아이디 입력 : "); String id = scanner.next();
+					System.out.println("전화번호 입력 : "); String contact = scanner.next();
+					String pw=Controller.pwsearch(id, contact);
+					if(pw==null) { // 리턴값이 null이면
+						System.out.print("일치하는 회원 정보가 없습니다.");
+					}
+					else { // null말고 제대로 반환하면
+						System.out.print("회원님의 비밀번호는 "+pw+"입니다.");}
+				}
+				
 				//종료
 				else if(ch==6) {
 					System.exit(0);

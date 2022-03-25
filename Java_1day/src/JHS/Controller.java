@@ -34,6 +34,17 @@ public class Controller {
 		if (result) {return 1;} 
 		else {return 0;}
 	}
+	
+	// duplication test 
+	public static boolean duplication_test (String id) {
+		for(Member temp : memberlist) {
+			if (temp.getId().equals(id)) {
+				return false;
+			} 
+		}
+		return true;
+	}
+	
 		// sign_up method
 	public static void sign_up (String id, String pw, String name, String phone) {
 		Member member = new Member(id, pw, name, phone);
@@ -156,6 +167,22 @@ public class Controller {
 	// 랭킹
 	
 	// 아이디찾기
-	
-	// 비밀번호찾기 
-}
+ 	//id찾기 정준영
+ 	public static String idsearch(String name, String contact) { // 이름, 연락처 받기
+ 		for(Member temp : memberlist) {
+ 			if(temp.getName().equals(name) && temp.getPhone().equals(contact)) {
+ 				return temp.getId(); // 이름, 연락처 일치하면
+ 			}
+ 		} return null; //일치하는 값이 없이 for문이 끝나면
+ 	} // id찾기 e
+ 	
+ 	// 비밀번호찾기 
+	//pw찾기 정준영
+	public static String pwsearch(String id, String contact) {
+		for(Member temp : memberlist) {
+			if(temp.getId().equals(id) && temp.getPhone().equals(contact)) {
+				return temp.getPassword(); // 이름, 연락처 일치하면
+				}
+			} return null; //일치하는 값이 없이 for문이 끝나면
+		}
+	}

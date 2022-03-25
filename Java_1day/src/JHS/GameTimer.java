@@ -9,11 +9,8 @@ public class GameTimer extends Thread {
 				return;
 			}
 			System.out.println(i);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			try {Thread.sleep(1000);} 
+			catch (Exception e) {}
 		}
 		System.out.println("시간이 초과되어 당신이 졌습니다.");
 		System.exit(0);
