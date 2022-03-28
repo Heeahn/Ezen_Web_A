@@ -4,13 +4,12 @@ import java.util.Scanner;
 
 public class App {//cs
 	
-	public static boolean inputCheck = false;
-	
 	static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {//ms
 		Controller controller = new Controller();
 		GameTimer gameTimer = new GameTimer();
+
 		try {//ts
 			while(true) {//ws
 				//메뉴[ 1. 회원가입 2. 로그인 3. 랭킹보기 4. 아이디 찾기 5. 비밀번호 찾기 6. 종료]
@@ -52,6 +51,7 @@ public class App {//cs
 					System.out.println(" ===================================");
 					System.out.print("ID : ");			String id = scanner.next();
 					System.out.print("PW : ");			String pw = scanner.next();
+					Controller.load();
 					int result = Controller.login(id, pw);
 					if (result == 1) {
 						System.out.println("\n로그인 성공\n");
@@ -68,7 +68,9 @@ public class App {//cs
 					else if (result == 3) {System.err.println("\n아이디 오류\n");}
 				}
 				//랭킹보기
-				else if(ch==3) {}
+				else if(ch==3) {
+					Controller.ranking();
+				}
 				
 				//아이디 찾기
 				else if(ch==4) {
@@ -79,7 +81,7 @@ public class App {//cs
 					System.out.println("전화번호 입력 : "); String contact = scanner.next();
 					String id=Controller.idsearch(name, contact);
 					if(id==null) { // 리턴값이 null이면
-						System.out.println("일치하는 회원 정보가 없습니다.");
+						System.err.println("일치하는 회원 정보가 없습니다.");
 					}else { // null말고 제대로 반환하면
 						System.out.println("회원님의 아이디는 "+id+"입니다.");
 					}
@@ -94,7 +96,7 @@ public class App {//cs
 					System.out.println("전화번호 입력 : "); String contact = scanner.next();
 					String pw=Controller.pwsearch(id, contact);
 					if(pw==null) { // 리턴값이 null이면
-						System.out.print("일치하는 회원 정보가 없습니다.");
+						System.err.print("일치하는 회원 정보가 없습니다.");
 					}
 					else { // null말고 제대로 반환하면
 						System.out.print("회원님의 비밀번호는 "+pw+"입니다.");}
@@ -105,7 +107,7 @@ public class App {//cs
 					System.exit(0);
 				}
 				else {
-					System.out.println("잘못입력하였습니다.");
+					System.err.println("잘못입력하였습니다.");
 				}
 			}//we
 		}//te
@@ -121,11 +123,21 @@ public class App {//cs
 				System.out.print(">>>>>: "); int ch = scanner.nextInt();
 				
 				if(ch == 1) {
-						System.out.println("게임 시작");
+					System.out.println("---------난이도 선택---------");
+					System.out.println("1. 초급 2. 중급 3.고급");
+					int ch1 = scanner.nextInt();
+					if(ch1==1) {
+						System.out.println("[초급 모드]게임 시작");
 						String firstword = Controller.randomfirstword();
 						System.out.print("첫번째 글자 : " + firstword + "\n");
-					while(true) {
+					
+						while(true) {
+							GameTimer gameTimer = new GameTimer();
+							
+							gameTimer.start();
 							System.out.print("입력 > "); 	String word = scanner.next();
+							gameTimer.interrupt();
+							
 							boolean result = Controller.gameStart(id, word);
 							if(result) {	}
 							else {
@@ -135,6 +147,49 @@ public class App {//cs
 							}
 						}
 					}
+					else if(ch1==2) {
+						System.out.println("[중급 모드]게임 시작");
+						String firstword = Controller.randomfirstword();
+						System.out.print("첫번째 글자 : " + firstword + "\n");
+					
+						while(true) {
+							Timer2 timer2 = new Timer2();
+							
+							timer2.start();
+							System.out.print("입력 > "); 	String word = scanner.next();
+							timer2.interrupt();
+							
+							boolean result = Controller.gameStart(id, word);
+							if(result) {	}
+							else {
+								System.err.println("게임 종료");
+								Controller.initialization(id);
+								break;
+							}
+						}
+					}
+					else if(ch1==3) {
+						System.out.println("[고급 모드]게임 시작");
+						String firstword = Controller.randomfirstword();
+						System.out.print("첫번째 글자 : " + firstword + "\n");
+					
+						while(true) {
+							Timer3 timer3 = new Timer3();
+							
+							timer3.start();
+							System.out.print("입력 > "); 	String word = scanner.next();
+							timer3.interrupt();
+							
+							boolean result = Controller.gameStart(id, word);
+							if(result) {	}
+							else {
+								System.err.println("게임 종료");
+								Controller.initialization(id);
+								break;
+							}
+						}
+					}
+				}
 				else if(ch == 2) {
 					System.out.println("---------점수 보기---------");
 					Controller.seeScore(id);
@@ -142,8 +197,6 @@ public class App {//cs
 				else if(ch == 3) {break;}
 				else System.out.println("올바른 숫자 입력");
 			}
-		}catch(Exception e) {
-			scanner = new Scanner(System.in);
-		}
+		}catch(Exception e) {scanner = new Scanner(System.in);}
 	}
 }//ce

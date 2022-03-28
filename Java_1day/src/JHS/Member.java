@@ -8,6 +8,7 @@ public class Member {
 	private int count;
 	private String name;
 	private String phone;
+	private String b;
 	
 	
 	//持失切
@@ -34,6 +35,15 @@ public class Member {
 	}
 
 	
+	public Member(String id, String password, String name, String phone, int count, String b) {
+		this.id = id;
+		this.password = password;
+		this.count = count;
+		this.name = name;
+		this.phone = phone;
+		this.b = b;
+	}
+
 	//五社球[get/set]
 	public String getId() {
 		return id;
@@ -73,6 +83,14 @@ public class Member {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getB() {
+		return b;
+	}
+
+	public void setB(String b) {
+		this.b = b;
 	}
 
 	
