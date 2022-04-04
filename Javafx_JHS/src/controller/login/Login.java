@@ -40,7 +40,7 @@ public class Login implements Initializable {
 			// 4. 미디어플레이어 시작
 			mediaPlayer.play();
 			
-			loadpage("/view/view.login/loginpane.fxml");
+			loadpage("/view/login/loginpane.fxml");
 			
 	}
 	
