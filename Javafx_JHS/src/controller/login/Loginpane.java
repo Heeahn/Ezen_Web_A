@@ -3,6 +3,7 @@ package controller.login;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import controller.Main;
 import dao.MemberDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,7 +70,10 @@ public class Loginpane implements Initializable {
     	boolean result = MemberDao.memberDao.login(id, password);
     	//3. 결과 확인 
     	if( result ) {
+    		Login.member = MemberDao.memberDao.getmember(id);
+    		
     		// 페이지 전환 [ 다음시간 ] 
+    		Main.instance.loadpage("/view/home/home.fxml");
     		// * 테스트 
     		lblconfirm.setText("로그인성공");
     	}else {

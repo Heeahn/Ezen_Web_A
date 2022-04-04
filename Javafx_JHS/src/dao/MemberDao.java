@@ -56,7 +56,7 @@ public class MemberDao { // DB 접근객체
 			ps.setString( 3 , member.getMemail() ); // 3번 ? 에 이메일 넣어주기
 			ps.setString( 4 , member.getMaddress() ); // 4번 ? 에 주소 넣어주기
 			ps.setInt( 5 , member.getMpoint() ); // 5번 ? 에 포인트 넣어주기
-			ps.setString( 6 , member.getMcince() ); // 6번 ? 에 가입일 넣어주기
+			ps.setString( 6 , member.getMsince() ); // 6번 ? 에 가입일 넣어주기
 			// 3. SQL 실행 
 			ps.executeUpdate(); // insert 실행 -> 삽입 결과물 X -> resultset X
 			return true; // * 성공시 
@@ -84,9 +84,109 @@ public class MemberDao { // DB 접근객체
 		return false; // 로그인 실패
 	}
 		// 3. 아이디찾기 메소드 ( 인수 : 아이디찾기 시 필요한 이메일 )
-	public String findid( String email ) { return null;}
+	public String findid( String email ) { 
+		
+		try {
+			// 1. SQL 작성
+			String sql = "select * from member where memail=?";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+			// 3. SQL 실행
+			rs = ps.executeQuery();
+			// 4. SQL 결과
+			if(rs.next()) {
+				return rs.getString(2); // 필드번호
+				//rs.getString(가져올 필드 순서번호);
+			}
+			
+		}catch (Exception e) {}
+		return null;
+		}
 		// 4. 비밀번호찾기 메소드 ( 인수 : 비밀번호찾기 시 필요한 아이디, 이메일 )
-	public String findpassword( String id , String email ) { return null;}
+	public String findpassword( String id , String email ) { 
+		
+		try {
+			// 1. SQL 작성
+			String sql = "select * from member where mid=? and memail=?";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, email);
+			// 3. SQL 실행
+			rs = ps.executeQuery();
+			// 4. SQL 결과
+			if(rs.next()) {
+				return rs.getString(3);
+			}
+		}catch (Exception e) {System.out.println( "[SQL 오류]"+e  ); }
+		return null;
+		}
+	
+	// 5. 아이디 인수 로 회원정보 호출
+	public Member getmember(String id) {
+		try {
+			// 1. SQL 작성
+			String sql = "select * from member where mid=?";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			// 3. SQL 실행
+			rs = ps.executeQuery();
+			// 4. SQL 결과
+			if(rs.next()) {
+				// 1. 객체 선언
+				Member member = new Member(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getInt(6),
+						rs.getString(7)
+						);
+				return member;
+			}
+			
+		}catch (Exception e) {System.out.println( "[SQL 오류]"+e  );}
+		return null;
+	}
+	
+	// 6. 회원탈퇴[회원번호를 인수로 받아 해당 회원번호의 레코드 삭제]
+	public boolean delete(int mnum) {
+		try {
+		// 1. SQL 작성
+			String sql = "delete from member where mnum=?";
+		// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, mnum);
+		// 3. SQL 실행
+			ps.executeUpdate(); 
+		// 4. SQL 결과
+			return true;
+		} catch (Exception e) {}		
+		return false;
+	}
+	
+	// 7. 회원수정[회원번호(대상), 이메일, 주소를 인수로 받아서 회원수정 처리]
+	public boolean update(int mnum, String memail, String maddress) {
+		try {
+			// 1. SQL 작성
+				// 수정 : update 테이블명 set 필드명1 = 수정값1, 필드명 2=수정값2 where 조건
+			String sql = "update member set memail=? , maddress=? where mnum=? ";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setString(1, memail); ps.setString(2, maddress); ps.setInt(3, mnum);
+			// 3. SQL 실행
+			ps.executeUpdate();
+			// 4. SQL 결과
+			return true;
+		} catch (Exception e) {}
+		
+		return false;
+	}
+	
+	
 	
 }
 
