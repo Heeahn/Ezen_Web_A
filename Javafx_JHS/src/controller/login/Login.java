@@ -44,13 +44,15 @@ public class Login implements Initializable {
 			// 4. 미디어플레이어 시작
 			mediaPlayer.play();
 			
-			// * 동영상 무한재생// 미디어 끝났을 때
-			mediaPlayer.setOnEndOfMedia(new Runnable() {
+			// * 동영상 무한재생 // 미디어 끝났을때 
+			mediaPlayer.setOnEndOfMedia( new Runnable() {
 				@Override
-				public void run() {
-					mediaPlayer.seek(Duration.ZERO);	
+				public void run() { // 멀티 스레드 
+					mediaPlayer.seek( Duration.ZERO);
+					// 미디어의 현재 위치를 처음으로 돌리기
 				}
-			});
+			} );
+			
 			
 			loadpage("/view/login/loginpane.fxml");
 			

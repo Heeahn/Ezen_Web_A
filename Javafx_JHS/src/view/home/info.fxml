@@ -1,68 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane fx:controller="controller.home.Info" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.login.Login">
    <children>
-      <Label layoutX="421.0" layoutY="107.0" text="회원 정보">
+      <MediaView fx:id="mediaview" fitHeight="720.0" fitWidth="1280.0" />
+      <ImageView fitHeight="154.0" fitWidth="278.0" layoutX="207.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/img/loginlogo.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="215.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="안산 지역 중고거래" wrappingWidth="311.12109375">
          <font>
-            <Font size="30.0" />
+            <Font name="Yj BACDOO Bold" size="30.0" />
          </font>
-      </Label>
-      <Line endX="163.0" layoutX="454.0" layoutY="157.0" startX="-100.0" />
-      <Label layoutX="456.0" layoutY="171.0" text="아이디">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="456.0" layoutY="260.0" text="이메일">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="466.0" layoutY="348.0" text="주소">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="456.0" layoutY="423.0" text="포인트">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="456.0" layoutY="503.0" text="가입일">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblid" layoutX="414.0" layoutY="207.0" text="QWEQWEQWER">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblemail" layoutX="386.0" layoutY="293.0" text="QWER@QWEQW.QWE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbladdress" layoutX="356.0" layoutY="381.0" text="경기도 안산시 상록구 본오동">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblpoint"  layoutX="460.0" layoutY="455.0" text="1234">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblsince"  layoutX="423.0" layoutY="536.0" text="2022-04-04">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      </Text>
+      <BorderPane fx:id="borderpane" layoutX="146.0" layoutY="205.0" prefHeight="500.0" prefWidth="400.0" />
    </children>
 </AnchorPane>

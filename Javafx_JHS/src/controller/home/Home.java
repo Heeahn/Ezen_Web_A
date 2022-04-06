@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 
 import controller.Main;
 import controller.login.Login;
+import dao.BoardDao;
 import dao.MemberDao;
+import dto.Board;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,29 +21,44 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class Home implements Initializable {
-				// fxml 실행시 초기값 설정 인테페이스 
+				// fxml 실행시 초기값 설정 인테페이스
+	
+	public static Home home; // 객체 
+	
+	// * this : 현재 클래스의 메모리 호출
+	public Home() { home = this; }
+	
 	
 	@FXML
 	private Label lblloginid;
 	@FXML
-	private Label lblidpoint;
+	private Label lblpoint;
 	@FXML
 	private Label lbllogout;
 	@FXML
 	private Label lbldelete; // fxid가져오기
 	@FXML
 	private Label lblinfo; // fxid가져오기
-	
 	@FXML
-	private Label lbupdate; // fxid가져오기
+	private Label lblupdate; // fxid가져오기
+	@FXML
+	private Label lblboard; // fxid가져오기
+	@FXML
+	private Label lblproduct; // fxid가져오기
 	
 	@FXML
 	private BorderPane borderpane;
 	
-	@FXML// 회원탈퇴 레이블을 클릭했을때 이벤트
+	@FXML// 자유게시 레이블을 클릭했을때 이벤트
+	public void accproduct( MouseEvent e ) { loadpage("/view/product/product.fxml"); }
+	
+	@FXML// 자유게시 레이블을 클릭했을때 이벤트
+	public void accboard( MouseEvent e ) { loadpage("/view/board/board.fxml"); }
+	
+	@FXML// 회원정보 레이블을 클릭했을때 이벤트
 	public void accinfo( MouseEvent e ) { loadpage("/view/home/info.fxml"); }
 	
-	@FXML// 회원탈퇴 레이블을 클릭했을때 이벤트
+	@FXML// 회원수정 레이블을 클릭했을때 이벤트
 	public void accupdate( MouseEvent e ) { loadpage("/view/home/update.fxml"); }
 	
 	
@@ -55,7 +72,7 @@ public class Home implements Initializable {
 	@Override // 실행 초기 메소드 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		lblloginid.setText( Login.member.getMid()+" 님" );
-		lblidpoint.setText("포인트 : "+ Login.member.getMpoint()+" 점");
+		lblpoint.setText("포인트 : "+ Login.member.getMpoint()+" 점");
 	}
 	
 	@FXML // 로그아웃 레이블를 클릭했을때 이벤트
@@ -64,6 +81,7 @@ public class Home implements Initializable {
 		Login.member = null;
 		// 2. 페이지 전환
 		Main.instance.loadpage("/view/login/login.fxml");
+		
 	}
 	@FXML// 회원탈퇴 레이블을 클릭했을때 이벤트
 	public void delete( MouseEvent e ) {

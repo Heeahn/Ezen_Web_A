@@ -15,40 +15,43 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class Update implements Initializable {
-
+	
 	@FXML
 	private TextField txtemail;
-	
 	@FXML
 	private TextField txtaddress;
-	
 	@FXML
 	private Button btnupdate;
 	
-	@FXML
-	public void update(ActionEvent e) {
-		// 1. 컨트롤러  입력한 데이터 가져오기
+	@FXML // 버튼클릭 -> ActionEvent  // 레이블클릭 -> MouseEvent
+	public void update( ActionEvent e ) {
+		// 1. 컨트롤러 입력한 데이터 가져오기
 		String email = txtemail.getText();
 		String address = txtaddress.getText();
-		// 2. 업데이트 처리[회원번호 = Login.member]
-		boolean result = MemberDao.memberDao.update(Login.member.getMnum(), email, address);
-		if(result) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("회원정보가 수정되었습니다[다시 로그인해주세요]");
-			alert.showAndWait();
+		// 2. 업데이트처리[ 회원번호 = Login.member
+		boolean result = MemberDao.memberDao.update( Login.member.getMnum() , email, address);
+		if( result ) {
+			Alert alert = new Alert( AlertType.INFORMATION ); // 메시지 출력
+				alert.setHeaderText("회원정보가 수정되었습니다 [ 다시 로그인해주세요 ] ");
+			alert.showAndWait();	
 			Main.instance.loadpage("/view/login/login.fxml"); // 페이지 전환
-			Login.member = null; // 로그인 정보 null
+			Login.member = null; // 로그인정보 null
 		}else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("회원정보가 수정실패하였습니다.[관리자에게 문의]");
+			Alert alert = new Alert( AlertType.INFORMATION ); // 메시지 출력
+				alert.setHeaderText("회원정보가 수정 실패 [ 관리자에게 문의 ]");
 			alert.showAndWait();
 		}
-		
 	}
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		txtemail.setText(Login.member.getMemail());
-		txtaddress.setText(Login.member.getMaddress());
+		txtemail.setText( Login.member.getMemail() );
+		txtaddress.setText( Login.member.getMaddress() );
 	}
+
 }
+
+
+
+
+
+
