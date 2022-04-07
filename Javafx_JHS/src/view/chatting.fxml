@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="950.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Chatting">
+   <children>
+      <Label layoutX="42.0" layoutY="29.0" prefHeight="63.0" prefWidth="263.0" text="실시간 커뮤니티">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Line endX="172.0" layoutX="143.0" layoutY="92.0" startX="-100.0" stroke="#0873ff" strokeWidth="5.0" />
+      <Button fx:id="btnconnect" layoutX="192.0" layoutY="125.0" mnemonicParsing="false" onAction="#connect" prefHeight="42.0" prefWidth="452.0" style="-fx-background-color: #0ddfdf;" text="채팅방 입장" />
+      <TextArea fx:id="txtcontent" layoutX="192.0" layoutY="182.0" prefHeight="433.0" prefWidth="452.0" />
+      <TextField fx:id="txtmsg" layoutX="192.0" layoutY="624.0" prefHeight="49.0" prefWidth="353.0" />
+      <Button fx:id="btnsend" layoutX="557.0" layoutY="628.0" mnemonicParsing="false" onAction="#send" prefHeight="42.0" prefWidth="87.0" style="-fx-background-color: #0ddfdf;" text="전송" />
+      <TextField fx:id="txtname" layoutX="659.0" layoutY="316.0" prefHeight="33.0" prefWidth="263.0" />
+      <TextField fx:id="txtip" layoutX="659.0" layoutY="376.0" prefHeight="33.0" prefWidth="263.0" />
+      <TextField fx:id="txtport" layoutX="659.0" layoutY="440.0" prefHeight="33.0" prefWidth="263.0" />
+      <Label layoutX="660.0" layoutY="297.0" text="채팅방 닉네임" />
+      <Label layoutX="660.0" layoutY="358.0" text="서버 IP 주소" />
+      <Label layoutX="660.0" layoutY="423.0" text="서버 PORT 번호" />
+      <Label layoutX="675.0" layoutY="265.0" prefHeight="15.0" prefWidth="229.0" text="* 아래 3가지 입력시 입장이 가능합니다.*" />
+   </children>
+</AnchorPane>

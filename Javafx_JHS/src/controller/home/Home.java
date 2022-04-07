@@ -36,30 +36,61 @@ public class Home implements Initializable {
 	@FXML
 	private Label lbllogout;
 	@FXML
-	private Label lbldelete; // fxid가져오기
+	private Label lbldelete;
 	@FXML
-	private Label lblinfo; // fxid가져오기
+	private Label lblinfo;
 	@FXML
-	private Label lblupdate; // fxid가져오기
+	private Label lblupdate; 
 	@FXML
-	private Label lblboard; // fxid가져오기
+	private Label lblboard; 
 	@FXML
-	private Label lblproduct; // fxid가져오기
+	private Label lblproduct1;
+	@FXML
+	private Label lblproduct2;
+	@FXML
+	private Label lblproduct3; 
+	@FXML
+	private Label lblproduct4;
+	@FXML
+	private Label lblhome;
 	
 	@FXML
 	private BorderPane borderpane;
 	
-	@FXML// 자유게시 레이블을 클릭했을때 이벤트
-	public void accproduct( MouseEvent e ) { loadpage("/view/product/product.fxml"); }
+	public static String category;
 	
+	@FXML// 남성의류 레이블을 클릭했을때 이벤트
+	public void accproduct1( MouseEvent e ) { 
+		loadpage("/view/product/product.fxml"); 
+		category="남성의류";
+	}
+	@FXML// 여성의류 레이블을 클릭했을때 이벤트
+	public void accproduct2( MouseEvent e ) { 
+		loadpage("/view/product/product.fxml"); 
+		category="여성의류";
+	}
+	@FXML// 게임기기 레이블을 클릭했을때 이벤트
+	public void accproduct3( MouseEvent e ) { 
+		loadpage("/view/product/product.fxml"); 
+		category="게임기기";
+	}
+	@FXML// 생활용품 레이블을 클릭했을때 이벤트
+	public void accproduct4( MouseEvent e ) { 
+		loadpage("/view/product/product.fxml"); 
+		category="생활용품";
+	}
 	@FXML// 자유게시 레이블을 클릭했을때 이벤트
-	public void accboard( MouseEvent e ) { loadpage("/view/board/board.fxml"); }
-	
+	public void accboard( MouseEvent e ) {
+		loadpage("/view/board/board.fxml"); }
 	@FXML// 회원정보 레이블을 클릭했을때 이벤트
-	public void accinfo( MouseEvent e ) { loadpage("/view/home/info.fxml"); }
-	
+	public void accinfo( MouseEvent e ) {
+		loadpage("/view/home/info.fxml"); }
 	@FXML// 회원수정 레이블을 클릭했을때 이벤트
-	public void accupdate( MouseEvent e ) { loadpage("/view/home/update.fxml"); }
+	public void accupdate( MouseEvent e ) { 
+		loadpage("/view/home/update.fxml"); }
+	@FXML// 홈 레이블을 클릭했을때 이벤트
+	public void acchome( MouseEvent e ) { 
+		loadpage("/view/chatting.fxml"); }
 	
 	
 	public void loadpage( String page ) {
@@ -71,6 +102,7 @@ public class Home implements Initializable {
 	
 	@Override // 실행 초기 메소드 
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		loadpage("/view/chatting.fxml");
 		lblloginid.setText( Login.member.getMid()+" 님" );
 		lblpoint.setText("포인트 : "+ Login.member.getMpoint()+" 점");
 	}

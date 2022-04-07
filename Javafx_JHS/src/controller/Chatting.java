@@ -1,0 +1,126 @@
+package controller;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import controller.login.Login;
+import dto.Client;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
+public class Chatting implements Initializable {
+
+    @FXML
+    private Button btnconnect;
+
+    @FXML
+    private TextArea txtcontent;
+
+    @FXML
+    private TextField txtmsg;
+
+    @FXML
+    private Button btnsend;
+
+    @FXML
+    private TextField txtname;
+
+    @FXML
+    private TextField txtip;
+
+    @FXML
+    private TextField txtport;
+
+    Socket socket;    // 1. 클라이언트 소켓 선언
+    
+    public void clientstart(){	// 2. 클라이언트 실행 메소드
+        // 멀티스레드
+    	Thread thread = new Thread(){
+    		@Override
+    		public void run() {
+    			try {
+					socket = new Socket("127.0.0.1",1234); // 서버의 ip와 포트번호 넣어주기
+					send(Login.member.getMid()+"님이 입장했습니다.\n"); // 접속과 동시에 입장메시지 보내기
+					receive(); // 접속과 동시에 받기 메소드는 무한루프
+				} catch (Exception e) {}
+    		}
+    	}; // 멀티스레드 구현 끝
+    		thread.start(); // 멀티스레드 실행
+    }
+    public void clientstop(){// 3. 클라이언트 종료 메소드
+       try {socket.close();} catch (Exception e) {}
+    }
+    public void send(String msg){	// 4. 서버에게 메시지 보내기 메소드 [실행조건 : 서버가 메시지를 받았을때]
+        Thread thread = new Thread(){
+        	@Override
+        	public void run() {
+        		try {
+					OutputStream outputStream = socket.getOutputStream(); // 1. 출력 스트림
+					outputStream.write(msg.getBytes());
+					outputStream.flush(); // 3. 스트림 초기화[스트림 내 바이트 지우기]
+				} catch (Exception e) {}
+        	}
+        }; // 멀티스레드 구현 끝
+        thread.start();
+    }
+    
+    public void receive(){ // 5. 서버에게 메시지 받기 메소드
+        try {
+			while(true) {
+				InputStream inputStream = socket.getInputStream(); 	// 1. 입력 스트림
+				byte[] bytes = new byte[1000];											// 2. 바이트배열 선언
+				inputStream.read(bytes);														// 3. 읽어오기
+				String msg = new String(bytes); 											// 4. 바이트배열 -> 문자열 변환
+				txtcontent.appendText(msg); // 입력받은 내용을 채팅창에 추가하기
+			}
+		} catch (Exception e) {}
+    }
+    @FXML
+    void connect(ActionEvent event) {
+    	if(btnconnect.getText().equals("채팅방 입장")) { //만약에 버튼이 "채팅방 입장" 이면 
+    		clientstart(); // 클라이언트 실행 메소드
+    		txtcontent.appendText("---[채팅방 입장]---\n");
+    		btnconnect.setText("채팅방 나가기");
+    		
+    		txtmsg.setText("");
+    		txtmsg.setDisable(false); 		// 채팅입력창 수정금지
+    		txtcontent.setDisable(false); // 채팅장 목록 사용금지
+    		btnsend.setDisable(false); 		// 전송버튼 사용금지
+    		txtmsg.requestFocus();
+    	}else {
+    		clientstop(); // 클라이언트 종료 메소드
+    		txtcontent.appendText("---[채팅방 퇴장]---\n");
+    		btnconnect.setText("채팅방 입장");
+    		
+    		txtmsg.setText("채팅방 입장후 사용가능");
+    		txtmsg.setDisable(true); 		// 채팅입력창 수정금지
+    		txtcontent.setDisable(true); 	// 채팅장 목록 사용금지
+    		btnsend.setDisable(true); 		// 전송버튼 사용금지
+    	}
+    }
+
+    @FXML
+    void send(ActionEvent event) {
+    	String msg = txtmsg.getText()+"\n"; // 보낼 메시지
+    	send(msg); // 메시지 보내기
+    	txtmsg.setText(""); // 보내기후 메시지입력창 지우기
+    	txtmsg.requestFocus(); // 보내기 후 메시지입력창으로 포커스(커서) 이동
+    }
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// 채팅 열렸을때 초기값 메소드
+			//* 채팅방 입장전에 아래 fxid를 사용못하게 금지
+		txtmsg.setText("채팅방 입장후 사용가능");
+		txtmsg.setDisable(true); // 채팅입력창 수정금지
+		txtcontent.setDisable(true); // 채팅장 목록 사용금지
+		btnsend.setDisable(true); // 전송버튼 사용금지
+	}
+}

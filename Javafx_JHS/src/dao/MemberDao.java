@@ -174,6 +174,7 @@ public class MemberDao { // DB 접근객체
 			return true; // 4.SQL 결과
 		}catch(Exception e ) { System.out.println( "[SQL 오류]"+e  ); }
 		return false;
+		
 	}
 	// 8. 해당 회원번호로 해당 id 찾기
 	public String getmid( int mnum ) {
