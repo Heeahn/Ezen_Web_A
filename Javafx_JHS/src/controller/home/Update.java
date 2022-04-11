@@ -21,6 +21,8 @@ public class Update implements Initializable {
 	@FXML
 	private TextField txtaddress;
 	@FXML
+	private TextField txtpoint;
+	@FXML
 	private Button btnupdate;
 	
 	@FXML // 버튼클릭 -> ActionEvent  // 레이블클릭 -> MouseEvent
@@ -28,6 +30,8 @@ public class Update implements Initializable {
 		// 1. 컨트롤러 입력한 데이터 가져오기
 		String email = txtemail.getText();
 		String address = txtaddress.getText();
+		String point = txtpoint.getText();
+		
 		// 2. 업데이트처리[ 회원번호 = Login.member
 		boolean result = MemberDao.memberDao.update( Login.member.getMnum() , email, address);
 		if( result ) {
@@ -46,6 +50,7 @@ public class Update implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		txtemail.setText( Login.member.getMemail() );
 		txtaddress.setText( Login.member.getMaddress() );
+		txtpoint.setText( Login.member.getMpoint()+"점");
 	}
 
 }
