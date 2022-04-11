@@ -195,7 +195,7 @@ public class MemberDao { // DB 접근객체
 	// 9. 전체 (인수 : 테이블명) 반환
 	public int counttotal(String tname) {
 		
-		String sql = "select count(*) from"+tname;
+		String sql = "select count(*) from "+tname;
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -211,7 +211,7 @@ public class MemberDao { // DB 접근객체
 	public Map<String, Integer> datetotal () {
 		
 		Map<String, Integer> map = new HashMap<>();
-		String sql = "select msince, count(*) from member group msice";
+		String sql = "select msince, count(*) from member group by msince";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -223,6 +223,22 @@ public class MemberDao { // DB 접근객체
 		return null;
 	}
 	
+	// 11. 날짜별로 게시물 등록수 반환
+	public Map<String, Integer> datetotal2(){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		String sql = "select substring_index(bdate,' ',1), count(*)"
+				+ "from board"
+				+" group by substring_index(bdate,' ',1)";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getString(1), rs.getInt(2));
+			}
+			return map;
+		} catch (Exception e) {}
+		return null;
+	}
 	
 }
 
