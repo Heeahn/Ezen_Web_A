@@ -131,23 +131,23 @@ public class Day03_6 {
 //		}
 //		System.out.println("\n-----------------------------------------");
 //		
-//		//별문제8
-//		System.out.print("문제8) 줄수 : "); 
-//		int line8 = scanner.nextInt();
-//		
-//		for(int i=1;i<=line7;i++){
-//			for(int b=1;b<=line7-i;b++) {
-//				System.out.print(" ");
-//			}
-//			for(int s=1;s<=(i*2)-1;s++) {
-//				System.out.print(i);
-//			}
-//			for(int b=1;b<=line7-i;b++) {
-//				System.out.print(" ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println("\n-----------------------------------------");
+		//별문제8
+		System.out.print("문제8) 줄수 : "); 
+		int line8 = scanner.nextInt();
+		
+		for(int i=1;i<=line8;i++){
+			for(int b=1;b<=line8-i;b++) {
+				System.out.print(" ");
+			}
+			for(int s=1;s<=(i*2)-1;s++) {
+				System.out.print(i);
+			}
+			for(int b=1;b<=line8-i;b++) {
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		System.out.println("\n-----------------------------------------");
 //		
 //		
 //		//별문제9
