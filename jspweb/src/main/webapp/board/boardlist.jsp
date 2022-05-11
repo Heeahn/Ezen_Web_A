@@ -1,5 +1,5 @@
-<%@page import="jspweb.dao.BoardDao"%>
 <%@page import="jspweb.dto.Board"%>
+<%@page import="jspweb.dao.BoardDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,50 +12,153 @@
 	<%@include file ="../header.jsp" %>
 
 	<div class="container">
-		<h3> 자유게시판 </h3><br><br>
-		
-		<%
-			String mid = (String)session.getAttribute("login");
-			if( mid != null ){
-		%>
-			<a href="boardwrite.jsp"> 글쓰기 </a><br><br>
-		<%} %>
-		
-		<table class="table"> <!-- 테이블 -->
-			<tr class="table-info">
-				<th class="col"> 번호 </th> 
-				<th class="col"> 제목 </th> 
-				<th class="col"> 작성자 </th> 
-				<th class="col"> 조회수  </th> 
-				<th class="col"> 작성일 </th> 
+		<h4 class="boardlist_title"> 자유게시판 </h4>
+<!-------------------------------- 검색 결과 처리 ------------------------------------>
+<%
+	request.setCharacterEncoding("UTF-8");
+	//검색에서 입력받은 데이터 요청하기
+	String key = request.getParameter("key");
+	String keyword = request.getParameter("keyword");
+	
+	// 세션을 이용한 검색처리 저장
+	
+	// 검색이 있을경우
+	if(key != null && keyword != null){
+		session.setAttribute("key", key);
+		session.setAttribute("keyword", keyword);
+	}else{
+		key = (String)session.getAttribute("key");
+		keyword = (String)session.getAttribute("keyword");
+	}
+	
+%>		
+<!-------------------------------- 페이징 계산 처리 ------------------------------------>
+<%
+	// 1. 게시물 전체 개수
+	int totalrow = BoardDao.getBoardDao().gettotalrow(key, keyword);
+	// 2. 현재 페이지번호 
+	int currentpage = 1;
+		// *요청받은 페이지번호 
+		String pagenum = request.getParameter("pagenum");
+		if( pagenum == null ){ // 만약에 페이지번호 요청이 없으면
+			currentpage = 1; // 1페이지
+		}else{
+			currentpage = Integer.parseInt( pagenum ); // 요청된 페이지번호 -> 정수형변환 -> 현재페이지 설정 
+		}
+	// 3. 페이지당 게시물을 표시할 개수 
+	int listsize = 5;	// 추후에 사용자에게 입력 받기 
+	// 4. 페이지당 게시물의 시작번호 
+	int startrow = (currentpage-1)*listsize; // 1페이지 -> 0  // 2페이지 -> 5  // 3페이지 -> 10 ~~~ 
+	// 5. 마지막페이지 번호 
+	int lastpage = 0;
+	if( totalrow % listsize == 0 ){ 
+		// 전체게시물 와 화면표시게시물수 나누기 했을때 나머지가 0이면
+		lastpage = totalrow / listsize; 
+	}else{
+		lastpage = totalrow / listsize +1; 
+		// 나머지가 있으면 나머지 게시물을 표시할 페이지 +1
+	}
+	
+	// 6-2 : 페이징 표시 개수
+	int btnsize = 5;
+	
+	// 6. 페이징버튼의 시작번호
+	int startbtn = ((currentpage-1)/btnsize)*(btnsize+1);
+	
+	// 7. 페이징버튼의 끝번호 
+	int endbtn = startbtn + btnsize-1;
+	if(endbtn > lastpage)endbtn = lastpage;
+	
+	// 5. 모든 게시물  호출 
+	ArrayList<Board> boardlist = BoardDao.getBoardDao().getboardlist( startrow , listsize, key, keyword );
+	
+%>
+<!------------------------- 전체글 / 인기글  버튼 구역 -------------------------- -->
+		<div class="row boardlist_topbtn">
+			<div class="col-md-1 offset-10">
+				<a href="boardlist.jsp?key=&keyw	ord="><button class="form-control">전체글</button></a>
+			</div>
+			<div class="col-md-1">
+				<button class="form-control">인기글</button>
+			</div>
+		</div>
+<!-- ---------------------- 테이블 구역 -------------------------- -->
+		<table class="table table-hover text-center"> <!-- 테이블 -->
+			<tr>
+				<th width="10%"> 번호 </th> 
+				<th width="50%"> 제목 </th> 
+				<th width="15%"> 작성자 </th> 
+				<th width="15%"> 작성일 </th> 
+				<th width="10%"> 조회수  </th> 
 			</tr>
 			<!-- for 문 -->
-			<%
-				// 1. 모든 게시물  호출 
-				ArrayList<Board> boardlist = BoardDao.getBoardDao().getboardlist();
-				for( Board board : boardlist ){
-			%>
-			<!-- 
-				행을 클릭했을 떄[js]
-				<tr onclick="location.href='boardview.jsp'">
-				상세 이동시 [식별 번호 같이 이동]
-					// 1. HTML : <a href='파일며여(경로).jsp?변수명=값'">
-					// 2. JS : "location.href='파일명(경로).jsp?변수명=값'"
-					// 3. java : response.sendRedirect("파일명(경로).jsp?변수명=값");
-			 -->
-				<tr class="table-hover">
-					<td> <%=board.getBno()%> </td>
-					<td> <a  href="boardview.jsp?bno=<%=board.getBno()%>"><%=board.getBtitle()%></a></td>
-					<td> <%=board.getMid()%></td>
-					<td> <%=board.getBview()%></td>
-					<td> <%=board.getBdate()%></td>
+			<% for( Board board : boardlist ){ %>
+				<tr>
+					<td> <%=board.getBno() %> </td>
+					<td  style="text-align: left;"> 
+							<a href="boardview.jsp?bno=<%=board.getBno()%>">
+								<%=board.getBtitle() %>
+							</a> 
+					</td>
+					<td> <%=board.getMid() %> </td>
+					<td> <%=board.getBdate() %> </td>
+					<td> <%=board.getBview() %> </td>
 				</tr>
 			<%
 				}
 			%>
 		</table>
+<!-- ---------------------- 글쓰기 버튼 구역 -------------------------- -->
+		<div class="col-md-2 offset-10">
+		<% String mid = (String)session.getAttribute("login");
+			if( mid != null ){  
+		%>
+			<a href="boardwrite.jsp"> <button class="form-control">글쓰기</button> </a>
+		<%}else{ %>
+			<span>*로그인후 글쓰기 가능합니다.</span>
+		<%} %>
+		</div>
+
+<!-------------------------- 페이징 입력 구역  -------------------------- -->		
+		<div class="col-md-4 offset-4 d-flex justify-content-center">	<!--  d-flex justify-content-center : 박스권 내에서 가운데 배치 -->
+			 <ul class="pagination">
+				 <!-- 이전버튼 -->
+			 	<%if(currentpage == 1){ %>
+			 		<li class="page-item">  <a class="page-link pagenum" href="boardlist.jsp">이전</a></li>
+			 	<%}else{ %>
+			 		<li class="page-item">  <a class="page-link pagenum" href="boardlist.jsp?pagenum=<%=currentpage-1%> ">이전</a></li>
+			 	<%} %>
+			 	<% for( int i = 1 ; i<=lastpage ; i++ ){ %>
+			 		<li class="page-item"> 
+				 		<a class="page-link pagenum" href="boardlist.jsp?pagenum=<%=i%>"> 
+				 			<%=i %> 
+				 		</a> 
+			 		</li>
+				<%}%>
+			 	<li class="page-item"> <a class="page-link pagenum" href="boardlist.jsp?pagenum=<%=currentpage+1%> ">다음</a></li>
+			 </ul>
+		</div>
+<!-- ---------------------- 검색 입력 구역  -------------------------- -->		
+		<form action="boardlist.jsp?pagenum=<%=currentpage%>" class="col-md-4 offset-4 d-flex justify-content-center">
+			<div class="col-md-3">  <!-- 키워드 선택  -->
+				<select class="form-select" name="key">
+					<option value="btitle"> 제목 </option> <!-- 필드명 -->
+					<option value="bcontent"> 내용 </option>
+					<option value="mid"> 작성자 </option>
+				</select>
+			</div>
+			<div class="col-md-7"> <!-- 검색 입력창  -->
+				<input type="text" class="form-control" name="keyword"><!-- keyword = 해당필드의 값 -->
+			</div>
+			<div class="col-md-2">  <!-- 검색 버튼  -->
+				<input type="submit" class="form-control" value="검색">
+			</div>
+		</form>
+<!-- ------------------------------------------------------------ -->	
 	</div>
 	<%@include file ="../footer.jsp" %>
 
 </body>
 </html>
+
+
