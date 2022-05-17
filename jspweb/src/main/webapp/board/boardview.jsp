@@ -1,8 +1,8 @@
-<%@page import="jspweb.dto.Reply"%>
+<%@page import="dto.Reply"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jspweb.dao.MemberDao"%>
-<%@page import="jspweb.dao.BoardDao"%>
-<%@page import="jspweb.dto.Board"%>
+<%@page import="dao.MemberDao"%>
+<%@page import="dto.Board"%>
+<%@page import="dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
 		%>
 	
 	
-		<h2 class="boardview_title"><%=board.getBtitle() %></h2>
+		<h4 class="boardview_title"><%=board.getBtitle() %></h4>
 		
 		<table class="table"> <!-- table : 부스트랩 테이블 클래스 -->
 			<tr> 
@@ -100,11 +100,11 @@
 				<td width="80%" colspan="2">
 					<%=reply.getRcontent() %> <br> 
 				<% if( mid !=null && mid.equals( reply.getMid() ) ){ // 본인 작성한 댓글이면 %>
-					<button class="btn replybtn" onclick="replyupdate(<%=reply.getRno()%>)"> 수정 </button>
+					<button class="btn replybtn"> 수정 </button>
 					<button type="button" class="btn replybtn" onclick="replydelete(<%=reply.getRno()%>)"> 삭제 </button>
 				<%} %>
 					<button class="btn replybtn" 
-						onclick="rereplyview(<%=reply.getRno()%> , <%=reply.getBno()%> , '<%=reply.getMid()%>' )"> 
+						onclick="rereplyview(<%=reply.getRno()%> , <%=reply.getBno()%> , '<%=mid%>' )"> 
 																	<!-- js메소드에 인수 넣을때 문자열 ' '처리 //  숫자형 제외 -->
 					댓글 
 					</button>
@@ -145,3 +145,16 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
-<%@page import="jspweb.dao.BoardDao"%>
-<%@page import="jspweb.dto.Board"%>
+<%@page import="dao.BoardDao"%>
+<%@page import="dto.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,13 +25,18 @@
 		<a href="boardlist.jsp"><button>글목록</button></a>
 		<h3> 글쓰기 </h3>
 		<form action="../board/update?bno=<%=board.getBno() %>" method="post" enctype="multipart/form-data" >
+			
 			제목 : <input type="text" name="btitle" value="<%=board.getBtitle()%>"> <br>
 			<textarea name="bcontent" id="summernote"><%=board.getBcontent()%></textarea>
-			<%if(board.getBfile() != null){ %>
-			첨부파일 : <%=board.getBfile()%> 
-			<button type="button" onclick="filedelete(<%=board.getBno()%>)">파일삭제</button>
+			
+			<% if( board.getBfile() != null ){ %>
+				첨부파일 : <%=board.getBfile() %>
+				<button type="button" onclick="filedelete(<%=board.getBno()%>)">파일삭제</button>
+				<br>
 			<%} %>
-			<input type="file" name="bfile"> <br>
+			
+				<input type="file" name="bfile"> <br>
+			
 			<input type="submit" value="수정"><input type="reset" value="취소">
 		</form>
 	</div>

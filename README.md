@@ -1,2 +1,2 @@
-# Ezen_Web_A
-이젠아카데미 공부
+# ezen_web_2022_A
+ezen_web_2022_A

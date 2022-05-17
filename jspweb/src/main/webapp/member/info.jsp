@@ -1,12 +1,12 @@
-<%@page import="jspweb.dao.MemberDao"%>
-<%@page import="jspweb.dto.Member"%>
+<%@page import="dto.Member"%>
+<%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>행복도시 컨설팅</title>
+<title>Insert title here</title>
 </head>
 	<%@include file = "../header.jsp" %>
 	<div class="container"> <!-- 박스권 -->

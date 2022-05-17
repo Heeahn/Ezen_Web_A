@@ -3,9 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-	li{list-style: none;}
-</style>
 </head>
 <body>
 
@@ -15,7 +12,7 @@
 		<li><a href="#">관심상품</a></li>
 		<li><a href="#">포인트</a></li>
 		<li><a href="#">쿠폰</a></li>
-		<li><a href="/jspweb/board/myboard.jsp">내가쓴글</a></li>
+		<li><a href="#">내가쓴글</a></li>
 		<li><a href="info.jsp">회원정보</a></li>
 		<li><a href="update.jsp">회원수정</a></li>
 		<li><a href="delete.jsp">회원탈퇴</a></li>
